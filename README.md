@@ -150,7 +150,7 @@ docker-compose.yml   All four databases
 
 ## Hardware
 
-All benchmarks ran on: Intel Core i7-13850HX, 64 GiB RAM, NVMe SSD, WSL2 (Ubuntu), Docker limited to 32 GiB.
+All benchmarks ran on: Intel Core i7-13850HX, 64 GiB RAM, NVMe SSD, WSL2 (Arch Linux), Docker limited to 32 GiB.
 
 ## License
 
