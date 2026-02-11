@@ -1,0 +1,69 @@
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: lcr_ch
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    environment:
+      - CLICKHOUSE_DB=lcr_demo
+      - CLICKHOUSE_USER=demo
+      - CLICKHOUSE_PASSWORD=demo
+      - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
+    volumes:
+      - ./db-init/clickhouse:/docker-entrypoint-initdb.d:ro
+      - ./data:/data
+      - ch_data:/var/lib/clickhouse
+
+  postgres:
+    image: postgres:17
+    container_name: lcr_pg
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=lcr_demo
+      - POSTGRES_USER=demo
+      - POSTGRES_PASSWORD=demo
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./db-init/postgres:/docker-entrypoint-initdb.d:ro
+
+  oracle:
+    image: gvenzl/oracle-free:23-slim
+    container_name: lcr_oracle
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    environment:
+      - ORACLE_PASSWORD=demo
+      - APP_USER=bench
+      - APP_USER_PASSWORD=bench
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+      - ./db-init/oracle:/container-entrypoint-initdb.d:ro
+      - ./data:/data:ro
+      - ./bench:/bench:ro
+
+  mariadb:
+    image: mariadb:11
+    container_name: lcr_maria
+    ports:
+      - "3306:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=demo
+      - MARIADB_DATABASE=lcr_demo
+      - MARIADB_USER=demo
+      - MARIADB_PASSWORD=demo
+    volumes:
+      - maria_data:/var/lib/mysql
+      - ./db-init/mariadb:/docker-entrypoint-initdb.d:ro
+    command: >
+      --innodb-buffer-pool-size=4G
+      --local-infile=1
+      --innodb-flush-log-at-trx-commit=2
+
+volumes:
+  ch_data:
+  pg_data:
+  oracle_data:
+  maria_data:

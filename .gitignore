@@ -1,0 +1,29 @@
+# === Python (Data Generator) ===
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+*.egg-info/
+.eggs/
+
+# === Data Files ===
+data/
+
+# === IDE ===
+.idea/
+.vscode/
+*.iml
+
+# === Docker ===
+.docker/
+
+# === OS ===
+.DS_Store
+Thumbs.db
+*~
+
+# === Secrets ===
+*.pem
+*.key
+secrets/
