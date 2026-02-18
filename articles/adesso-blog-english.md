@@ -116,8 +116,6 @@ This hybrid approach delivers sub-second regulatory queries at production scale,
 
 The complete benchmark—data generator, schemas, load scripts, and queries for all four databases—is available on [GitHub](https://github.com/ferderer/basel3-lcr-nsfr-benchmark). The 1M benchmark runs on any machine with Docker in a few minutes; the full 100M suite takes a few hours, including data generation.
 
-A detailed technical deep dive covering storage internals, ClickHouse-specific optimizations, and scaling analysis is available on [ferderer.de](https://ferderer.de/blog/tech/basel3-lcr-nsfr-benchmark).
-
 ---
 
 *Vadim Ferderer is a senior software engineer at adesso SE, specializing in performance optimization and software architecture.*
