@@ -101,7 +101,7 @@
 | Disk total      |   520 MB  |
 
 > **Note:** Oracle XE 21c is limited to 2 CPU threads. Replaced by Oracle 23ai
-> free for subsequent tests (no CPU thread limit, parallel query support).
+> free for subsequent tests (2 CPU threads, 2 GB RAM).
 
 ### 3b. Oracle 23ai free (gvenzl/oracle-free:23-slim, 2 CPU threads, 2 GB RAM)
 
