@@ -103,7 +103,7 @@
 > **Note:** Oracle XE 21c is limited to 2 CPU threads. Replaced by Oracle 23ai
 > free for subsequent tests (no CPU thread limit, parallel query support).
 
-### 3b. Oracle 23ai free (gvenzl/oracle-free:23-slim, **no CPU limit**)
+### 3b. Oracle 23ai free (gvenzl/oracle-free:23-slim, 2 CPU threads, 2 GB RAM)
 
 ### Load Times
 
