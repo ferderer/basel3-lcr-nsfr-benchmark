@@ -57,6 +57,8 @@ bash bench/load_postgres.sh b1
 bash bench/load_mariadb.sh b1
 
 # Oracle (uses SQL*Loader, slower)
+# a restart is required to get the inmemory settings
+docker restart lcr_oracle
 bash bench/load_oracle.sh b1
 ```
 
