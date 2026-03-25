@@ -48,4 +48,17 @@ for month_dir in "${DATA_ROOT}/${BATCH_NAME}"/*; do
   done
 done
 
+# no optimizer statistics: bad plans generated
+echo "Gathering optimizer statistics..."
+docker exec -i "${CONTAINER}" bash -c "echo \"
+BEGIN
+  DBMS_STATS.GATHER_TABLE_STATS(ownname => UPPER('${ORA_USER}'), tabname => 'FACT_POSITIONS',  cascade => TRUE, method_opt => 'FOR ALL COLUMNS SIZE AUTO');
+  DBMS_STATS.GATHER_TABLE_STATS(ownname => UPPER('${ORA_USER}'), tabname => 'FACT_CASHFLOWS',  cascade => TRUE, method_opt => 'FOR ALL COLUMNS SIZE AUTO');
+  DBMS_STATS.GATHER_TABLE_STATS(ownname => UPPER('${ORA_USER}'), tabname => 'DIM_LCR_RULES',   cascade => TRUE, method_opt => 'FOR ALL COLUMNS SIZE AUTO');
+  DBMS_STATS.GATHER_TABLE_STATS(ownname => UPPER('${ORA_USER}'), tabname => 'DIM_NSFR_RULES',  cascade => TRUE, method_opt => 'FOR ALL COLUMNS SIZE AUTO');
+END;
+/
+EXIT;
+\" | sqlplus -S ${ORA_USER}/${ORA_PASS}@localhost:1521/${ORA_DB}"
+
 echo "Done."

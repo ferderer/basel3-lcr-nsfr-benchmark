@@ -1,5 +1,10 @@
--- Runs as APP_USER (bench) in FREEPDB1 via gvenzl/oracle-free init
--- No CONNECT needed; init scripts run as APP_USER automatically
+-- This appears to run as SYS, not APP_USER, at least using podman.
+
+-- Set the inmemory area in the SPFILE (it requires restart)
+alter system set inmemory_size=256M scope=spfile;
+
+alter session set container=FREEPDB1;
+alter session set current_schema=bench;
 
 CREATE TABLE fact_positions (
     batch_name       VARCHAR2(64)   NOT NULL,
@@ -54,3 +59,16 @@ CREATE TABLE dim_nsfr_rules (
     rsf_factor       NUMBER(5,4)    NOT NULL,
     CONSTRAINT pk_nsfr_rules PRIMARY KEY (asset_liability_flag, product, maturity_bucket)
 );
+
+-- In-Memory column store: this will speed up column aggregations by a few factors
+ALTER TABLE fact_positions
+  INMEMORY PRIORITY CRITICAL ;
+
+ALTER TABLE fact_cashflows
+  INMEMORY PRIORITY CRITICAL;
+
+ALTER TABLE dim_lcr_rules
+  INMEMORY PRIORITY CRITICAL;
+
+ALTER TABLE dim_nsfr_rules
+  INMEMORY PRIORITY CRITICAL;

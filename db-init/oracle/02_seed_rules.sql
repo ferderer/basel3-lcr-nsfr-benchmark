@@ -1,4 +1,6 @@
--- Runs as APP_USER (bench) in FREEPDB1 via gvenzl/oracle-free init
+-- Again, this wasn't running as bench and the dimensions were not populated.
+alter session set container=FREEPDB1;
+alter session set current_schema=bench;
 
 -- Seed LCR rules
 INSERT ALL
